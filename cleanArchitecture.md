@@ -25,7 +25,7 @@
     *   `InMemoryPermissionRepository`: Реализация `PermissionRepository`.
 *   **Источники данных (Data Sources):** В текущем проекте это списки `users`, `resources`, `permissions`.
 *   **Вспомогательные классы:**
-    *   `PasswordHasher`: Класс, отвечающий за хэширование паролей.
+    *   `PasswordHasher`: Класс, отвечающий за хеширование паролей.
 
 ### **Presentation Layer (Слой представления)**
 
