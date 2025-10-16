@@ -1,9 +1,7 @@
-import util.hashPassword
+package data.source
 
-data class User(
-    val login: String,
-    val salt: String,
-    val passwordHash: String)
+import domain.model.User
+import util.hashPassword
 
 val users = listOf(
     User(

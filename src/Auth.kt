@@ -1,3 +1,5 @@
+import util.hashPassword
+
 fun authenticate(login: String, password: String): Int {
     val user = users.find { it.login == login } ?: return 3 // неверный логин
     val inputHash = hashPassword(password, user.salt)

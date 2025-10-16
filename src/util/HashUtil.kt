@@ -1,3 +1,5 @@
+package util
+
 import java.security.MessageDigest
 
 fun hashPassword(password: String, salt: String): String {

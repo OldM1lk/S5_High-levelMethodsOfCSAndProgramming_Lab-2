@@ -1,7 +1,7 @@
 package domain.use_case
 
 import domain.repository.UserRepository
-import hashPassword
+import util.hashPassword
 
 class AuthenticateUserUseCase(
     private val repository: UserRepository,
