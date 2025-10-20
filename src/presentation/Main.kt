@@ -38,6 +38,6 @@ fun main(args: Array<String>) {
         exitProcess(8) // превышение объёма
     }
 
-    // успех
+    // успешный успех
     exitProcess(0)
 }
