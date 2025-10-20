@@ -8,14 +8,14 @@ object ResourceNavigator {
     }
 
     fun findByPath(resource: Resource, path: List<String>, resources: List<Resource>): Resource? {
-        return if (path.first() == resource.name) {
-            if (path.size == 1) resource
-            else {
-                val next = children(resources).find { it.name == path[1] }
-                next?.let { findByPath(it, path.drop(1), resources) }
-            }
-        } else null
+        if (path.first() != resource.name) return null
+
+        if (path.size == 1) return resource
+
+        val next = children(resource, resources).find { it.name == path[1] } ?: return null
+        return findByPath(next, path.drop(1), resources)
     }
 
-    fun children(resources: List<Resource>): List<Resource> = resources.filter { it.parent == this }
+    fun children(parent: Resource, resources: List<Resource>): List<Resource> =
+        resources.filter { it.parent == parent }
 }
