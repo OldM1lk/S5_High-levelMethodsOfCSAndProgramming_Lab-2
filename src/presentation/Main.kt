@@ -3,9 +3,6 @@ package presentation
 import data.repository.InMemoryPermissionRepository
 import data.repository.InMemoryResourceRepository
 import data.repository.InMemoryUserRepository
-import data.source.permissions
-import data.source.resources
-import data.source.users
 import domain.use_case.AuthenticateUserUseCase
 import domain.use_case.CheckAccessUseCase
 import kotlin.system.exitProcess
@@ -14,9 +11,9 @@ fun main(args: Array<String>) {
     val parser = CommandLineParser(args)
     val input = parser.parse()
 
-    val userRepository = InMemoryUserRepository(users)
-    val resourceRepository = InMemoryResourceRepository(resources)
-    val permissionRepository = InMemoryPermissionRepository(permissions)
+    val userRepository = InMemoryUserRepository()
+    val resourceRepository = InMemoryResourceRepository()
+    val permissionRepository = InMemoryPermissionRepository()
 
     val authUseCase = AuthenticateUserUseCase(userRepository)
     val accessUseCase = CheckAccessUseCase(permissionRepository)
