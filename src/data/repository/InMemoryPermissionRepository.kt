@@ -5,9 +5,20 @@ import domain.model.Resource
 import domain.model.ResourceAction
 import domain.repository.PermissionRepository
 
-class InMemoryPermissionRepository(
-    private val permissions: List<Permission>
-) : PermissionRepository {
+class InMemoryPermissionRepository() : PermissionRepository {
+    private val permissions = listOf(
+        Permission(
+            "alice",
+            "B",
+            setOf(ResourceAction.READ, ResourceAction.WRITE, ResourceAction.EXECUTE)
+        ),
+        Permission(
+            "bob",
+            "X",
+            setOf(ResourceAction.READ)
+        )
+    )
+
     override fun hasPermission(
         user: String,
         resource: Resource,
