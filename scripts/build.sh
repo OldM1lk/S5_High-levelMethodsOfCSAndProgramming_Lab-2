@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+# Переход в корень проекта относительно папки scripts
+cd "$(dirname "$0")/.."
+
 # Чистка старых сборок
 rm -rf out
 mkdir -p out
