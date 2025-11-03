@@ -8,11 +8,7 @@
 - `CheckAccessUseCase` - Корректность делегирования вызова `PermissionRepository.hasPermission()`
 - `ResourceNavigator` - Построение полного пути, поиск ресурса по пути, определение дочерних элементов
 - `HashUtil.hashPassword()` - Стабильность хеша при одинаковом входе, различие при разном
-- `InMemoryPermissionRepository` - Проверка наследования прав через иерархию `Resource.parent`
 - `InMemoryResourceRepository` - Корректное построение и поиск по пути `A.B.C`
-- `InMemoryUserRepository` - Поиск пользователя по логину
-- `CommandLineParser` - Сейчас использует `exitProcess()` для ошибок и помощи, тем самым мешая тестированию, нужно
-  вынести коды ошибок в `sealed class ParseResult` (успех / ошибка / help). `exitProcess` вызывать только в `Main`
 
 ## Минимальный рефакторинг
 
@@ -41,7 +37,6 @@
 | `ResourceNavigatorTest.shouldBuildFullPathCorrectly()`                 | Проверяет корректность конкатенации `A.B.C`                |
 | `ResourceNavigatorTest.shouldFindResourceByPath()`                     | Проверяет корректность навигации                           |
 | `HashUtilTest.shouldGenerateSameHashForSameInput()`                    | Проверяет детерминированность хеша                         |
-| `CommandLineParserTest.shouldReturnHelpResultForHelpFlag()`            | После рефакторинга, проверка обработки `--help`            |
 
 ---
 
@@ -58,6 +53,6 @@
 
 | Метрика                           | Значение                     |
 |-----------------------------------|------------------------------|
-| Количество запланированных тестов | 7                            |
+| Количество запланированных тестов | 6                            |
 | Выполнено / прошло успешно        | 0 / 0                        |
-| Покрытие логики (оценочно)        | ~70% после добавления тестов |
+| Покрытие логики (оценочно)        | ~80% после добавления тестов |
