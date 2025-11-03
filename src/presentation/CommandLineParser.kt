@@ -4,7 +4,6 @@ import domain.model.ResourceAction
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.required
-import kotlin.system.exitProcess
 
 class CommandLineParser(private val argv: Array<String>) {
     data class ParsedArgs(
@@ -15,7 +14,13 @@ class CommandLineParser(private val argv: Array<String>) {
         val volume: Int
     )
 
-    fun parse(): ParsedArgs {
+    sealed class ParseResult {
+        data class Success(val args: ParsedArgs) : ParseResult()
+        data class Error(val code: Int) : ParseResult()
+        object HelpRequested : ParseResult()
+    }
+
+    fun parse(): ParseResult {
         val parser = ArgParser("app")
 
         val login by parser.option(
@@ -54,50 +59,33 @@ class CommandLineParser(private val argv: Array<String>) {
         ).required()
 
         if (argv.contains("-h") || argv.contains("--help")) {
-            printHelp()
-            exitProcess(1) // справка
+            return ParseResult.HelpRequested
         }
 
-        try {
+        return try {
             parser.parse(argv)
-        } catch (e: Exception) {
-            exitProcess(7) // неверный формат
-        }
 
-        val resourceAction = when (action.lowercase()) {
+            val resourceAction = action.toResourceAction() ?: return ParseResult.Error(4)
+
+            if (!isValidResourcePath(resourcePath))
+                return ParseResult.Error(7)
+
+            ParseResult.Success(ParsedArgs(login, password, resourcePath, resourceAction, volume))
+        } catch (_: Exception) {
+            ParseResult.Error(7)
+        }
+    }
+
+    private fun String.toResourceAction(): ResourceAction? =
+        when (lowercase()) {
             "read" -> ResourceAction.READ
             "write" -> ResourceAction.WRITE
             "execute" -> ResourceAction.EXECUTE
-            else -> {
-                exitProcess(4) // неизвестное действие
-            }
+            else -> null
         }
 
-        val parts = resourcePath.split(".")
-        if (!parts.all { it.matches(Regex("^[A-Za-z0-9_]{1,20}$")) }) {
-            exitProcess(7) // неверный формат
-        }
-
-        return ParsedArgs(
-            login = login,
-            password = password,
-            resourcePath = resourcePath,
-            action = resourceAction,
-            volume = volume
-        )
-    }
-
-    private fun printHelp() {
-        println(
-            """
-            Supported arguments:
-            -l, --login      User login
-            -p, --password   User password
-            -r, --resource   Resource path
-            -a, --action     Action: read, write, execute
-            -v, --volume     Resource volume
-            -h, --help       Show help
-            """.trimIndent()
-        )
+    private fun isValidResourcePath(path: String): Boolean {
+        val parts = path.split(".")
+        return parts.all { it.matches(Regex("^[A-Za-z0-9_]{1,20}$")) }
     }
 }
