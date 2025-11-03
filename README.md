@@ -20,13 +20,13 @@ bash build.sh
 Запуск программы с аргументами командной строки:
 
 ```bash
-bash run.sh -l <login> -p <password>
+bash run.sh -l <login> -p <password> -r <resource> -a <action> -v <volume>
 ```
 
 Пример:
 
 ```bash
-bash run.sh -l alice -p qwerty
+bash run.sh -l alice -p qwerty -r B.C -a read -v 10
 ```
 
 ### Тестирование
