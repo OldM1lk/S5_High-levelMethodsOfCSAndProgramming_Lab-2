@@ -29,14 +29,19 @@
 
 ## Примеры проверяемых сценариев
 
-| Название теста                                                         | Краткое описание                                           |
-|------------------------------------------------------------------------|------------------------------------------------------------|
-| `AuthenticateUserUseCaseTest.shouldReturnSuccessForCorrectPassword()`  | Проверяет корректный логин/пароль                          |
-| `AuthenticateUserUseCaseTest.shouldReturnErrorForWrongPassword()`      | Проверяет ошибку 2                                         |
-| `InMemoryPermissionRepositoryTest.shouldInheritPermissionFromParent()` | Проверяет, что права наследуются вверх по цепочке ресурсов |
-| `ResourceNavigatorTest.shouldBuildFullPathCorrectly()`                 | Проверяет корректность конкатенации `A.B.C`                |
-| `ResourceNavigatorTest.shouldFindResourceByPath()`                     | Проверяет корректность навигации                           |
-| `HashUtilTest.shouldGenerateSameHashForSameInput()`                    | Проверяет детерминированность хеша                         |
+| Название теста                                                                     | Краткое описание                                                                      |
+|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| `AuthenticateUserUseCaseTest.shouldReturnSuccessForCorrectPassword()`              | Проверяет успешную аутентификацию при правильных данных                               |
+| `AuthenticateUserUseCaseTest.shouldReturnErrorForWrongPassword()`                  | Проверяет возврат кода ошибки при неверном пароле                                     |
+| `InMemoryPermissionRepositoryTest.shouldInheritPermissionFromParent()`             | Проверяет, что доступ наследуется от родительского ресурса                            |
+| `InMemoryPermissionRepositoryTest.shouldReturnFalseForUserWithoutAnyPermissions()` | Проверяет, что пользователь без прав не получает доступ                               |
+| `ResourceNavigatorTest.shouldBuildFullPathCorrectly()`                             | Проверяет корректное построение полного пути ресурса (A.B.C)                          |
+| `ResourceNavigatorTest.shouldFindResourceByPath()`                                 | Проверяет успешный поиск ресурса по корректному пути                                  |
+| `ResourceNavigatorTest.shouldReturnNullForNonexistentPath()`                       | Проверяет возврат `null` при неверном или несуществующем пути                         |
+| `HashUtilTest.shouldGenerateSameHashForSameInput()`                                | Проверяет, что одинаковый пароль и соль дают одинаковый хэш                           |
+| `HashUtilTest.shouldGenerateDifferentHashForDifferentSalt()`                       | Проверяет, что разная соль даёт разные хэши для одного пароля                         |
+| `CheckAccessUseCase.shouldDelegateCallToPermissionRepositoryAndReturnTrue()`       | Проверяет, что use case корректно возвращает true, если репозиторий разрешает доступ  |
+| `CheckAccessUseCase.shouldDelegateCallToPermissionRepositoryAndReturnFalse()`      | Проверяет, что use case корректно возвращает false, если репозиторий запрещает доступ |
 
 ---
 
