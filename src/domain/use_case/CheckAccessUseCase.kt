@@ -7,6 +7,6 @@ import domain.repository.PermissionRepository
 class CheckAccessUseCase(
     private val repository: PermissionRepository
 ) {
-    fun execute(user: String, resource: Resource, action: ResourceAction): Boolean =
+    operator fun invoke(user: String, resource: Resource, action: ResourceAction): Boolean =
         repository.hasPermission(user, resource, action)
 }

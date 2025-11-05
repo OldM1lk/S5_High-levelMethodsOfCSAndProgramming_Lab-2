@@ -32,12 +32,12 @@ fun runApp(args: Array<String>): Int {
             val authUseCase = AuthenticateUserUseCase(userRepository)
             val accessUseCase = CheckAccessUseCase(permissionRepository)
 
-            val authCode = authUseCase.execute(input.login, input.password)
+            val authCode = authUseCase(input.login, input.password)
             if (authCode != 0) return authCode  // 2 — неверный пароль, 3 — неверный логин
 
             val resource = resourceRepository.findResourceByPath(input.resourcePath) ?: return 6    // ресурс не найден
 
-            val hasAccess = accessUseCase.execute(input.login, resource, input.action)
+            val hasAccess = accessUseCase(input.login, resource, input.action)
             if (!hasAccess) return 5    // нет доступа
 
             if (input.volume > resource.maxVolume) return 8    // превышен объем
