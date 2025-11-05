@@ -11,7 +11,7 @@ class AuthenticateUserUseCaseTest {
         val repository = InMemoryUserRepository()
         val useCase = AuthenticateUserUseCase(repository)
 
-        val result = useCase.execute("alice", "qwerty")
+        val result = useCase("alice", "qwerty")
 
         assertEquals(0, result)
     }
@@ -21,7 +21,7 @@ class AuthenticateUserUseCaseTest {
         val repository = InMemoryUserRepository()
         val useCase = AuthenticateUserUseCase(repository)
 
-        val result = useCase.execute("alice", "wrong")
+        val result = useCase("alice", "wrong")
 
         assertEquals(2, result)
     }

@@ -17,7 +17,7 @@ class CheckAccessUseCaseTest {
 
         val resourceD = resourceRepo.findResourceByPath("A.B.C.D")!!
 
-        val result = useCase.execute("alice", resourceD, ResourceAction.READ)
+        val result = useCase("alice", resourceD, ResourceAction.READ)
 
         assertTrue(result)
     }
@@ -30,7 +30,7 @@ class CheckAccessUseCaseTest {
 
         val resourceY = resourceRepo.findResourceByPath("A.X.Y")!!
 
-        val result = useCase.execute("bob", resourceY, ResourceAction.WRITE)
+        val result = useCase("bob", resourceY, ResourceAction.WRITE)
 
         assertFalse(result)
     }
