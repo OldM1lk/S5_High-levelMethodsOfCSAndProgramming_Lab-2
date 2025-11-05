@@ -1,13 +1,11 @@
 package tests
 
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
-import data.repository.InMemoryResourceRepository
 import data.repository.InMemoryPermissionRepository
+import data.repository.InMemoryResourceRepository
 import domain.model.ResourceAction
-import domain.model.Resource
-import domain.service.ResourceNavigator
-import util.hashPassword
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class InMemoryPermissionRepositoryTest {
     @Test

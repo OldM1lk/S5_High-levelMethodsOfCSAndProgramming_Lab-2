@@ -1,14 +1,12 @@
 package tests
 
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
-import domain.use_case.AuthenticateUserUseCase
-import data.repository.InMemoryUserRepository
-import data.repository.InMemoryResourceRepository
 import data.repository.InMemoryPermissionRepository
+import data.repository.InMemoryResourceRepository
 import domain.model.ResourceAction
-import domain.model.Resource
 import domain.use_case.CheckAccessUseCase
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class CheckAccessUseCaseTest {
     @Test

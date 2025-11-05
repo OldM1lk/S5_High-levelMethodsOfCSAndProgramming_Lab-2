@@ -20,5 +20,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="junit-platform-console-standalone" level="project" />
   </component>
 </module>
