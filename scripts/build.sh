@@ -9,6 +9,6 @@ rm -rf out
 mkdir -p out
 
 # Компиляция
-kotlinc $(find src -name "*.kt") -cp "lib/junit-platform-console-standalone.jar;lib/kotlinx-cli-jvm-0.3.6.jar" -include-runtime -d app.jar
+kotlinc "$(find src -name "*.kt")" -cp "lib/junit-platform-console-standalone.jar;lib/kotlinx-cli-jvm-0.3.6.jar" -include-runtime -d app.jar
 
 echo "Сборка завершена: out/app.jar"
