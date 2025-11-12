@@ -10,7 +10,7 @@
 Собираем проект с помощью `build.sh` (необходимо наличие Git Bash / Linux / WSL):
 
 ```bash
-bash build.sh
+bash scripts/build.sh
 ```
 
 После выполнения появится файл `out/app.jar`.
@@ -20,13 +20,13 @@ bash build.sh
 Запуск программы с аргументами командной строки:
 
 ```bash
-bash run.sh -l <login> -p <password>
+bash scripts/run.sh -l <login> -p <password> -r <resource> -a <action> -v <volume>
 ```
 
 Пример:
 
 ```bash
-bash run.sh -l alice -p qwerty
+bash run.sh -l alice -p qwerty -r B.C -a read -v 10
 ```
 
 ### Тестирование
@@ -34,5 +34,11 @@ bash run.sh -l alice -p qwerty
 Для автоматической проверки кодов возврата:
 
 ```bash
-bash test.sh
+bash scripts/test.sh
+```
+
+Для unit-тестирования:
+
+```bash
+bash scripts/unitTest.sh
 ```

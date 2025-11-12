@@ -8,33 +8,55 @@ import domain.use_case.CheckAccessUseCase
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
+    exitProcess(runApp(args))
+}
+
+fun runApp(args: Array<String>): Int {
     val parser = CommandLineParser(args)
-    val input = parser.parse()
 
-    val userRepository = InMemoryUserRepository()
-    val resourceRepository = InMemoryResourceRepository()
-    val permissionRepository = InMemoryPermissionRepository()
+    return when (val result = parser.parse()) {
+        is CommandLineParser.ParseResult.HelpRequested -> {
+            printHelp()
+            1
+        }
 
-    val authUseCase = AuthenticateUserUseCase(userRepository)
-    val accessUseCase = CheckAccessUseCase(permissionRepository)
+        is CommandLineParser.ParseResult.Error -> result.code
 
-    val authCode = authUseCase.execute(input.login, input.password)
-    if (authCode != 0) {
-        exitProcess(authCode) // 3 — неверный логин, 2 — неверный пароль
+        is CommandLineParser.ParseResult.Success -> {
+            val input = result.args
+
+            val userRepository = InMemoryUserRepository()
+            val resourceRepository = InMemoryResourceRepository()
+            val permissionRepository = InMemoryPermissionRepository()
+
+            val authUseCase = AuthenticateUserUseCase(userRepository)
+            val accessUseCase = CheckAccessUseCase(permissionRepository)
+
+            val authCode = authUseCase(input.login, input.password)
+            if (authCode != 0) return authCode  // 2 — неверный пароль, 3 — неверный логин
+
+            val resource = resourceRepository.findResourceByPath(input.resourcePath) ?: return 6    // ресурс не найден
+
+            val hasAccess = accessUseCase(input.login, resource, input.action)
+            if (!hasAccess) return 5    // нет доступа
+
+            if (input.volume > resource.maxVolume) return 8    // превышен объем
+
+            0   // успех
+        }
     }
+}
 
-    val resource = resourceRepository.findResourceByPath(input.resourcePath)
-        ?: exitProcess(6) // ресурс не найден
-
-    val hasAccess = accessUseCase.execute(input.login, resource, input.action)
-    if (!hasAccess) {
-        exitProcess(5) // нет доступа
-    }
-
-    if (input.volume > resource.maxVolume) {
-        exitProcess(8) // превышение объёма
-    }
-
-    // успешный успех
-    exitProcess(0)
+private fun printHelp() {
+    println(
+        """
+        Supported arguments:
+        -l, --login      User login
+        -p, --password   User password
+        -r, --resource   Resource path
+        -a, --action     Action: read, write, execute
+        -v, --volume     Resource volume
+        -h, --help       Show help
+        """.trimIndent()
+    )
 }
