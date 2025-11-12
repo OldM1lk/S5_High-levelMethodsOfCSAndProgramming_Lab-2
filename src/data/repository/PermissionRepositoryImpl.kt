@@ -5,7 +5,7 @@ import domain.model.ResourceAction
 import domain.repository.PermissionRepository
 import java.sql.Connection
 
-class PermissionRepository(private val connection: Connection) : PermissionRepository {
+class PermissionRepositoryImpl(private val connection: Connection) : PermissionRepository {
     override fun hasPermission(user: String, resource: Resource, action: ResourceAction): Boolean {
         var current: Resource? = resource
 

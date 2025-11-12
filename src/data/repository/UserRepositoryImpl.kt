@@ -4,7 +4,7 @@ import domain.model.User
 import domain.repository.UserRepository
 import java.sql.Connection
 
-class UserRepository(private val connection: Connection) : UserRepository {
+class UserRepositoryImpl(private val connection: Connection) : UserRepository {
     override fun findUserByLogin(login: String): User? {
         val stmt = connection.prepareStatement("SELECT * FROM users WHERE login = ?")
         stmt.setString(1, login)

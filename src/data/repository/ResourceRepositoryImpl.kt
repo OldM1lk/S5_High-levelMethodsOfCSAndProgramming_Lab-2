@@ -5,7 +5,7 @@ import domain.repository.ResourceRepository
 import domain.service.ResourceNavigator
 import java.sql.Connection
 
-class ResourceRepository(private val connection: Connection) : ResourceRepository {
+class ResourceRepositoryImpl(private val connection: Connection) : ResourceRepository {
     override fun findResourceByPath(path: String): Resource? {
         val parts = path.split(".")
         if (!parts.all { it.matches(Regex("^[A-Za-z0-9_]{1,20}$")) }) return null
