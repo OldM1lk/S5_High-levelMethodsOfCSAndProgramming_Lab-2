@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Сборка проекта
-bash scripts/build.sh
+bash build.sh
 
 # Переход в корень проекта
 cd "$(dirname "$0")/.." || exit

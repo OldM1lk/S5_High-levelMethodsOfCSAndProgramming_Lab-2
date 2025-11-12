@@ -1,7 +1,9 @@
 #!/bin/bash
 
 #Сборка проекта
-bash scripts/build.sh
+bash build.sh
+
+cd "$(dirname "$0")/.." || exit
 
 java -jar lib/junit-platform-console-standalone.jar \
   --class-path app.jar \
