@@ -1,4 +1,4 @@
-package data.repository
+package data.repository.jdbc
 
 import domain.model.Resource
 import domain.model.ResourceAction

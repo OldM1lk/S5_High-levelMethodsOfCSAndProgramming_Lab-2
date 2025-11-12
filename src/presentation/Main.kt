@@ -1,8 +1,8 @@
 package presentation
 
-import data.repository.PermissionRepositoryImpl
-import data.repository.ResourceRepositoryImpl
-import data.repository.UserRepositoryImpl
+import data.repository.jdbc.PermissionRepositoryImpl
+import data.repository.jdbc.ResourceRepositoryImpl
+import data.repository.jdbc.UserRepositoryImpl
 import domain.use_case.AuthenticateUserUseCase
 import domain.use_case.CheckAccessUseCase
 import util.DatabaseConnectionFactory

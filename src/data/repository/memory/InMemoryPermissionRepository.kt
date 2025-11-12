@@ -1,4 +1,4 @@
-package data.repository
+package data.repository.memory
 
 import domain.model.Permission
 import domain.model.Resource
