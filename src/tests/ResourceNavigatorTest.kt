@@ -1,9 +1,9 @@
 package tests
 
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
 import domain.model.Resource
 import domain.service.ResourceNavigator
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Test
 
 class ResourceNavigatorTest {
     @Test
