@@ -4,6 +4,7 @@ import domain.model.Resource
 import domain.repository.ResourceRepository
 import domain.service.ResourceNavigator
 import java.sql.Connection
+import java.sql.ResultSet
 
 class ResourceRepositoryImpl(private val connection: Connection) : ResourceRepository {
     override fun findResourceByPath(path: String): Resource? {
@@ -17,41 +18,49 @@ class ResourceRepositoryImpl(private val connection: Connection) : ResourceRepos
 
     private fun getAllResources(): List<Resource> {
         val resources = mutableListOf<Resource>()
-        val stmt = connection.prepareStatement("SELECT name, max_volume, parent_name FROM resources")
-        val rs = stmt.executeQuery()
-        val resourceMap = mutableMapOf<String, Resource>()
+        val stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+        stmt.use { statement ->
+            val rs = statement.executeQuery("SELECT name, max_volume, parent_name FROM resources")
+            rs.use { resultSet ->
+                val resourceMap = mutableMapOf<String, Resource>()
 
-        while (rs.next()) {
-            val name = rs.getString("name")
-            val maxVolume = rs.getInt("max_volume")
-            resourceMap[name] = Resource(name, maxVolume)
-        }
+                while (resultSet.next()) {
+                    val name = resultSet.getString("name")
+                    val maxVolume = resultSet.getInt("max_volume")
+                    resourceMap[name] = Resource(name, maxVolume)
+                }
 
-        rs.beforeFirst()
-        while (rs.next()) {
-            val name = rs.getString("name")
-            val parentName = rs.getString("parent_name")
-            if (parentName != null) {
-                val child = resourceMap[name]!!
-                val parent = resourceMap[parentName]
-                resourceMap[name] = child.copy(parent = parent)
+                resultSet.beforeFirst()
+                while (resultSet.next()) {
+                    val name = resultSet.getString("name")
+                    val parentName = resultSet.getString("parent_name")
+                    if (parentName != null) {
+                        val child = resourceMap[name]!!
+                        val parent = resourceMap[parentName]
+                        resourceMap[name] = child.copy(parent = parent)
+                    }
+                }
+
+                resources.addAll(resourceMap.values)
             }
         }
-
-        resources.addAll(resourceMap.values)
         return resources
     }
 
     private fun getResourceByName(name: String): Resource? {
         val stmt = connection.prepareStatement("SELECT name, max_volume, parent_name FROM resources WHERE name = ?")
-        stmt.setString(1, name)
-        val rs = stmt.executeQuery()
-        if (rs.next()) {
-            val maxVolume = rs.getInt("max_volume")
-            val parentName = rs.getString("parent_name")
-            val parent = parentName?.let { getResourceByName(it) }
-            return Resource(name, maxVolume, parent)
+        stmt.use { statement ->
+            statement.setString(1, name)
+            val rs = statement.executeQuery()
+            rs.use { resultSet ->
+                if (resultSet.next()) {
+                    val maxVolume = resultSet.getInt("max_volume")
+                    val parentName = resultSet.getString("parent_name")
+                    val parent = parentName?.let { getResourceByName(it) }
+                    return Resource(name, maxVolume, parent)
+                }
+                return null
+            }
         }
-        return null
     }
 }

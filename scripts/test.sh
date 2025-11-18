@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP="./run.sh"
+APP="scripts/run.sh"
 TOTAL=0
 PASSED=0
 

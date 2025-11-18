@@ -5,7 +5,7 @@ import data.repository.jdbc.ResourceRepositoryImpl
 import data.repository.jdbc.UserRepositoryImpl
 import domain.use_case.AuthenticateUserUseCase
 import domain.use_case.CheckAccessUseCase
-import util.DatabaseConnectionFactory
+import util.DatabaseConnection
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -25,7 +25,7 @@ fun runApp(args: Array<String>): Int {
 
         is CommandLineParser.ParseResult.Success -> {
             val input = result.args
-            val connection = DatabaseConnectionFactory.createConnection()
+            val connection = DatabaseConnection.createConnection()
 
             try {
                 connection.use { connection ->

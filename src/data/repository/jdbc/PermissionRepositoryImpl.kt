@@ -10,17 +10,21 @@ class PermissionRepositoryImpl(private val connection: Connection) : PermissionR
         var current: Resource? = resource
 
         while (current != null) {
-            val stmt = connection.prepareStatement(
+            val hasPermission = connection.prepareStatement(
                 "SELECT action FROM permissions WHERE user_login = ? AND resource_name = ?"
-            )
-            stmt.setString(1, user)
-            stmt.setString(2, current.name)
-            val rs = stmt.executeQuery()
-
-            while (rs.next()) {
-                val dbAction = ResourceAction.valueOf(rs.getString("action"))
-                if (dbAction == action) return true
+            ).use { stmt ->
+                stmt.setString(1, user)
+                stmt.setString(2, current.name)
+                stmt.executeQuery().use { rs ->
+                    while (rs.next()) {
+                        val dbAction = ResourceAction.valueOf(rs.getString("action"))
+                        if (dbAction == action) return true
+                    }
+                    false
+                }
             }
+
+            if (hasPermission) return true
             current = current.parent
         }
 

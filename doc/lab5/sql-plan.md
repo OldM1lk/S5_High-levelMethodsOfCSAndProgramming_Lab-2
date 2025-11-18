@@ -64,7 +64,7 @@ erDiagram
 * СУБД: **H2 (файловая)**
 * Подключение через **JDBC**: `DriverManager.getConnection("jdbc:h2:./src/data/data_source/app-db", "sa", "")`
 * Скрипты:
-    * `scripts/init-db.sh` — создаёт базу и таблицы
+    * `scripts/initDb.sh` — создаёт базу и таблицы
     * `scripts/fill.sql` — наполняет таблицы начальными данными
 * Все соединения и запросы обёрнуты в `use` для корректного закрытия
 
