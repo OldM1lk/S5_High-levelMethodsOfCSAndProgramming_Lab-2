@@ -1,9 +1,9 @@
 package tests
 
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.*
+import data.repository.memory.InMemoryUserRepository
 import domain.use_case.AuthenticateUserUseCase
-import data.repository.InMemoryUserRepository
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 class AuthenticateUserUseCaseTest {
     @Test

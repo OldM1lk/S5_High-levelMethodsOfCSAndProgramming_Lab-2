@@ -1,4 +1,4 @@
-package data.repository
+package data.repository.memory
 
 import domain.model.Resource
 import domain.repository.ResourceRepository
