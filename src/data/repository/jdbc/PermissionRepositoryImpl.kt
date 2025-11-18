@@ -7,12 +7,11 @@ import java.sql.Connection
 
 class PermissionRepositoryImpl(private val connection: Connection) : PermissionRepository {
     override fun hasPermission(user: String, resource: Resource, action: ResourceAction): Boolean {
+        val sql = "SELECT action FROM permissions WHERE user_login = ? AND resource_name = ?"
         var current: Resource? = resource
 
         while (current != null) {
-            val hasPermission = connection.prepareStatement(
-                "SELECT action FROM permissions WHERE user_login = ? AND resource_name = ?"
-            ).use { stmt ->
+            val hasPermission = connection.prepareStatement(sql).use { stmt ->
                 stmt.setString(1, user)
                 stmt.setString(2, current.name)
                 stmt.executeQuery().use { rs ->

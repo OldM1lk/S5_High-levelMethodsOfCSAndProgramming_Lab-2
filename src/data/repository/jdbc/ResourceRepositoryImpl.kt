@@ -17,10 +17,11 @@ class ResourceRepositoryImpl(private val connection: Connection) : ResourceRepos
     }
 
     private fun getAllResources(): List<Resource> {
+        val sql = "SELECT name, max_volume, parent_name FROM resources"
         val resources = mutableListOf<Resource>()
         val stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
         stmt.use { statement ->
-            val rs = statement.executeQuery("SELECT name, max_volume, parent_name FROM resources")
+            val rs = statement.executeQuery(sql)
             rs.use { resultSet ->
                 val resourceMap = mutableMapOf<String, Resource>()
 
@@ -48,7 +49,8 @@ class ResourceRepositoryImpl(private val connection: Connection) : ResourceRepos
     }
 
     private fun getResourceByName(name: String): Resource? {
-        val stmt = connection.prepareStatement("SELECT name, max_volume, parent_name FROM resources WHERE name = ?")
+        val sql = "SELECT name, max_volume, parent_name FROM resources WHERE name = ?"
+        val stmt = connection.prepareStatement(sql)
         stmt.use { statement ->
             statement.setString(1, name)
             val rs = statement.executeQuery()
