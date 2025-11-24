@@ -40,11 +40,11 @@ jobs:
           Я просто хотел немного познакомиться.
           Как тебя зовут детка?
           Чего ты одна?
-  
-          📦 CD Pipeline
+          
+          🔧 CI Pipeline
           Статус: $STATUS
-          Релиз: v1.0.${{ github.run_number }}
-          Docker: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
+          PR: ${{ github.event.pull_request.title }}
+          Запуск: ${{ github.run_number }}
           EOF
           )
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
