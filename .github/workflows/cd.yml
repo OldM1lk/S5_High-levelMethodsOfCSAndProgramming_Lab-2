@@ -67,3 +67,19 @@ jobs:
           asset_path: build/app-fat.jar
           asset_name: app-fat.jar
           asset_content_type: application/java-archive
+
+      - name: Send Telegram notification
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          TEXT=
+          "Ты меня не узнала, это я дэдпул.\n
+          Я просто хотел немного познакомиться.\n
+          Как тебя зовут детка?\n
+          Чего ты одна?\n
+          \n
+          📦 *CD Pipeline*\nСтатус: *$STATUS*\nРелиз: v1.0.${{ github.run_number }}\nDocker: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest"
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="$TEXT" \
+            -d parse_mode=Markdown
