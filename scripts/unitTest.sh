@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Сборка проекта
-bash build.sh
+bash scripts/build.sh
 
 cd "$(dirname "$0")/.." || exit
 
