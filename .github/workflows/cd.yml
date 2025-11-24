@@ -24,6 +24,12 @@ jobs:
       - name: Build fat-jar
         run: ./scripts/fatBuild.sh
 
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fat-jar
+          path: build/app-fat.jar
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
