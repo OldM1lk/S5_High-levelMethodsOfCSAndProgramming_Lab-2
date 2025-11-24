@@ -81,7 +81,7 @@ jobs:
           📦 CD Pipeline
           Статус: $STATUS
           Релиз: v1.0.${{ github.run_number }}
-          Docker: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest"
+          Docker: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
           EOF
           )
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
