@@ -30,3 +30,23 @@ jobs:
 
       - name: Run full tests
         run: ./scripts/test.sh
+
+      - name: Send Telegram notification
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          TEXT=$(cat <<EOF
+          Ты меня не узнала, это я дэдпул.
+          Я просто хотел немного познакомиться.
+          Как тебя зовут детка?
+          Чего ты одна?
+          
+          🔧 CI Pipeline
+          Статус: $STATUS
+          PR: ${{ github.event.pull_request.title }}
+          Запуск: ${{ github.run_number }}
+          EOF
+          )
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="$TEXT"
