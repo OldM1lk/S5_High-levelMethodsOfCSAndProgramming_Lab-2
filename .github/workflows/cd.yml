@@ -72,8 +72,18 @@ jobs:
         if: always()
         run: |
           STATUS="${{ job.status }}"
-          TEXT="Ты меня не узнала, это я дэдпул.\nЯ просто хотел немного познакомиться.\nКак тебя зовут детка?\nЧего ты одна?\n\n📦 *CD Pipeline*\nСтатус: *$STATUS*\nРелиз: v1.0.${{ github.run_number }}\nDocker: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest"
+          TEXT=$(cat <<EOF
+          Ты меня не узнала, это я дэдпул.
+          Я просто хотел немного познакомиться.
+          Как тебя зовут детка?
+          Чего ты одна?
+          
+          📦 CD Pipeline
+          Статус: $STATUS
+          Релиз: v1.0.${{ github.run_number }}
+          Docker: ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest"
+          EOF
+          )
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="$TEXT" \
-            -d parse_mode=Markdown
+            -d text="$TEXT"
