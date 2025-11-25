@@ -8,7 +8,15 @@ cd "$(dirname "$0")/.."
 rm -rf out
 mkdir -p out
 
+if [[ "$OS" == "Windows_NT" ]]; then
+    SEP=";"
+else
+    SEP=":"
+fi
+
 # Компиляция
-kotlinc $(find src -name "*.kt") -cp "lib/junit-platform-console-standalone.jar;lib/kotlinx-cli-jvm-0.3.6.jar" -include-runtime -d "out/app.jar"
+CP="lib/junit-platform-console-standalone.jar${SEP}lib/kotlinx-cli-jvm-0.3.6.jar${SEP}lib/h2-2.4.240.jar"
+
+kotlinc $(find src -name "*.kt") -cp "$CP" -include-runtime -d "out/app.jar"
 
 echo "Сборка завершена: out/app.jar"

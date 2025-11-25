@@ -1,10 +1,11 @@
 package presentation
 
-import data.repository.InMemoryPermissionRepository
-import data.repository.InMemoryResourceRepository
-import data.repository.InMemoryUserRepository
+import data.repository.jdbc.PermissionRepositoryImpl
+import data.repository.jdbc.ResourceRepositoryImpl
+import data.repository.jdbc.UserRepositoryImpl
 import domain.use_case.AuthenticateUserUseCase
 import domain.use_case.CheckAccessUseCase
+import util.DatabaseConnection
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -24,25 +25,35 @@ fun runApp(args: Array<String>): Int {
 
         is CommandLineParser.ParseResult.Success -> {
             val input = result.args
+            val connection = DatabaseConnection.createConnection()
 
-            val userRepository = InMemoryUserRepository()
-            val resourceRepository = InMemoryResourceRepository()
-            val permissionRepository = InMemoryPermissionRepository()
+            try {
+                connection.use { connection ->
+                    val userRepository = UserRepositoryImpl(connection)
+                    val resourceRepository = ResourceRepositoryImpl(connection)
+                    val permissionRepository = PermissionRepositoryImpl(connection)
 
-            val authUseCase = AuthenticateUserUseCase(userRepository)
-            val accessUseCase = CheckAccessUseCase(permissionRepository)
+                    val authUseCase = AuthenticateUserUseCase(userRepository)
+                    val accessUseCase = CheckAccessUseCase(permissionRepository)
 
-            val authCode = authUseCase(input.login, input.password)
-            if (authCode != 0) return authCode  // 2 — неверный пароль, 3 — неверный логин
+                    val authCode = authUseCase(input.login, input.password)
+                    if (authCode != 0) return authCode  // 2 — неверный пароль, 3 — неверный логин
 
-            val resource = resourceRepository.findResourceByPath(input.resourcePath) ?: return 6    // ресурс не найден
+                    val resource =
+                        resourceRepository.findResourceByPath(input.resourcePath) ?: return 6    // ресурс не найден
 
-            val hasAccess = accessUseCase(input.login, resource, input.action)
-            if (!hasAccess) return 5    // нет доступа
+                    val hasAccess = accessUseCase(input.login, resource, input.action)
+                    if (!hasAccess) return 5    // нет доступа
 
-            if (input.volume > resource.maxVolume) return 8    // превышен объем
+                    if (input.volume > resource.maxVolume) return 8    // превышен объем
 
-            0   // успех
+                    0   // успех
+                }
+            } catch (e: java.sql.SQLException) {
+                10  // ошибка SQL-запроса
+            } catch (e: Exception) {
+                9   // ошибка подключения к базе данных
+            }
         }
     }
 }

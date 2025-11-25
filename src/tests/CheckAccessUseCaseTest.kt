@@ -1,7 +1,7 @@
 package tests
 
-import data.repository.InMemoryPermissionRepository
-import data.repository.InMemoryResourceRepository
+import data.repository.memory.InMemoryPermissionRepository
+import data.repository.memory.InMemoryResourceRepository
 import domain.model.ResourceAction
 import domain.use_case.CheckAccessUseCase
 import org.junit.jupiter.api.Assertions.assertFalse
