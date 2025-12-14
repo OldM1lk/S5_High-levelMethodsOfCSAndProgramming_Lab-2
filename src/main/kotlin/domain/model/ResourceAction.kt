@@ -1,4 +1,4 @@
-package main.kotlin.domain.model
+package domain.model
 
 enum class ResourceAction {
     READ, WRITE, EXECUTE

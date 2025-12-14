@@ -1,6 +1,6 @@
-package main.kotlin.domain.use_case
+package domain.use_case
 
-import main.kotlin.domain.repository.UserRepository
+import domain.repository.UserRepository
 import main.kotlin.util.hashPassword
 
 class AuthenticateUserUseCase(

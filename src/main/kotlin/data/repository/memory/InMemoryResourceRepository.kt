@@ -1,8 +1,8 @@
-package main.kotlin.data.repository.memory
+package data.repository.memory
 
-import main.kotlin.domain.model.Resource
-import main.kotlin.domain.repository.ResourceRepository
-import main.kotlin.domain.service.ResourceNavigator
+import domain.model.Resource
+import domain.repository.ResourceRepository
+import domain.service.ResourceNavigator
 
 class InMemoryResourceRepository() : ResourceRepository {
     private val resources: List<Resource> by lazy {

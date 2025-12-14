@@ -1,8 +1,8 @@
-package main.kotlin.data.repository.jdbc
+package data.repository.jdbc
 
-import main.kotlin.domain.model.Resource
-import main.kotlin.domain.repository.ResourceRepository
-import main.kotlin.domain.service.ResourceNavigator
+import domain.model.Resource
+import domain.repository.ResourceRepository
+import domain.service.ResourceNavigator
 import java.sql.Connection
 import java.sql.ResultSet
 

@@ -1,8 +1,8 @@
-package test.kotlin.tests
+package test.kotlin
 
-import main.kotlin.data.repository.memory.InMemoryPermissionRepository
-import main.kotlin.data.repository.memory.InMemoryResourceRepository
-import main.kotlin.domain.model.ResourceAction
+import data.repository.memory.InMemoryPermissionRepository
+import data.repository.memory.InMemoryResourceRepository
+import domain.model.ResourceAction
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

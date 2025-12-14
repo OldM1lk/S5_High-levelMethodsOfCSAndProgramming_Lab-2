@@ -1,8 +1,8 @@
-package main.kotlin.domain.use_case
+package domain.use_case
 
-import main.kotlin.domain.model.Resource
-import main.kotlin.domain.model.ResourceAction
-import main.kotlin.domain.repository.PermissionRepository
+import domain.model.Resource
+import domain.model.ResourceAction
+import domain.repository.PermissionRepository
 
 class CheckAccessUseCase(
     private val repository: PermissionRepository

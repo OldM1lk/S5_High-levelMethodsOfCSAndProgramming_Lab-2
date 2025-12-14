@@ -1,9 +1,9 @@
-package main.kotlin.data.repository.memory
+package data.repository.memory
 
-import main.kotlin.domain.model.Permission
-import main.kotlin.domain.model.Resource
-import main.kotlin.domain.model.ResourceAction
-import main.kotlin.domain.repository.PermissionRepository
+import domain.model.Permission
+import domain.model.Resource
+import domain.model.ResourceAction
+import domain.repository.PermissionRepository
 
 class InMemoryPermissionRepository() : PermissionRepository {
     private val permissions = listOf(

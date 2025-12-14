@@ -1,7 +1,7 @@
-package main.kotlin.data.repository.memory
+package data.repository.memory
 
-import main.kotlin.domain.model.User
-import main.kotlin.domain.repository.UserRepository
+import domain.model.User
+import domain.repository.UserRepository
 import main.kotlin.util.hashPassword
 
 class InMemoryUserRepository() : UserRepository {

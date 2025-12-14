@@ -1,4 +1,4 @@
-package main.kotlin.domain.model
+package domain.model
 
 data class Permission(
     val userLogin: String,

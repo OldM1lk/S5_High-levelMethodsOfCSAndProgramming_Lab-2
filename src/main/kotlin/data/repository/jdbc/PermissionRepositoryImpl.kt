@@ -1,8 +1,8 @@
-package main.kotlin.data.repository.jdbc
+package data.repository.jdbc
 
-import main.kotlin.domain.model.Resource
-import main.kotlin.domain.model.ResourceAction
-import main.kotlin.domain.repository.PermissionRepository
+import domain.model.Resource
+import domain.model.ResourceAction
+import domain.repository.PermissionRepository
 import java.sql.Connection
 
 class PermissionRepositoryImpl(private val connection: Connection) : PermissionRepository {

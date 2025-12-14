@@ -1,6 +1,6 @@
-package main.kotlin.presentation
+package presentation
 
-import main.kotlin.domain.model.ResourceAction
+import domain.model.ResourceAction
 import kotlinx.cli.ArgParser
 import kotlinx.cli.ArgType
 import kotlinx.cli.required

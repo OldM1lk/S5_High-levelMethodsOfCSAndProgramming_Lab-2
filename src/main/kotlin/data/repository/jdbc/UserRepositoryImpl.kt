@@ -1,7 +1,7 @@
-package main.kotlin.data.repository.jdbc
+package data.repository.jdbc
 
-import main.kotlin.domain.model.User
-import main.kotlin.domain.repository.UserRepository
+import domain.model.User
+import domain.repository.UserRepository
 import java.sql.Connection
 
 class UserRepositoryImpl(private val connection: Connection) : UserRepository {

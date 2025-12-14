@@ -1,6 +1,6 @@
-package main.kotlin.domain.service
+package domain.service
 
-import main.kotlin.domain.model.Resource
+import domain.model.Resource
 
 object ResourceNavigator {
     fun fullPath(resource: Resource): String {

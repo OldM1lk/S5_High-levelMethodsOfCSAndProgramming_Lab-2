@@ -1,6 +1,6 @@
-package main.kotlin.domain.repository
+package domain.repository
 
-import main.kotlin.domain.model.User
+import domain.model.User
 
 interface UserRepository {
     fun findUserByLogin(login: String): User?

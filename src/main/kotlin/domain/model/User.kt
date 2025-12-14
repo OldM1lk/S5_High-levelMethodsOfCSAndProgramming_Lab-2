@@ -1,4 +1,4 @@
-package main.kotlin.domain.model
+package domain.model
 
 data class User(
     val login: String,

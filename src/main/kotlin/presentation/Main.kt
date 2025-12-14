@@ -1,15 +1,30 @@
-package main.kotlin.presentation
+package presentation
 
-import main.kotlin.data.repository.jdbc.PermissionRepositoryImpl
-import main.kotlin.data.repository.jdbc.ResourceRepositoryImpl
-import main.kotlin.data.repository.jdbc.UserRepositoryImpl
-import main.kotlin.domain.use_case.AuthenticateUserUseCase
-import main.kotlin.domain.use_case.CheckAccessUseCase
+import data.repository.jdbc.PermissionRepositoryImpl
+import data.repository.jdbc.ResourceRepositoryImpl
+import data.repository.jdbc.UserRepositoryImpl
+import domain.use_case.AuthenticateUserUseCase
+import domain.use_case.CheckAccessUseCase
 import main.kotlin.util.DatabaseConnection
+import org.springframework.boot.CommandLineRunner
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.runApplication
+import org.springframework.stereotype.Component
 import kotlin.system.exitProcess
 
+@SpringBootApplication
+class Application
+
 fun main(args: Array<String>) {
-    exitProcess(runApp(args))
+    runApplication<Application>(*args)
+}
+
+@Component
+class CliRunner : CommandLineRunner {
+    override fun run(args: Array<String>) {
+        val exitCode = runApp(args)
+        exitProcess(exitCode)
+    }
 }
 
 fun runApp(args: Array<String>): Int {
