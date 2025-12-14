@@ -3,7 +3,9 @@ package domain.use_case
 import domain.model.Resource
 import domain.model.ResourceAction
 import domain.repository.PermissionRepository
+import org.springframework.stereotype.Service
 
+@Service
 class CheckAccessUseCase(
     private val repository: PermissionRepository
 ) {

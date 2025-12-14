@@ -20,14 +20,21 @@ fun main(args: Array<String>) {
 }
 
 @Component
-class CliRunner : CommandLineRunner {
+class CliRunner(
+    private val authenticateUserUseCase: AuthenticateUserUseCase,
+    private val checkAccessUseCase: CheckAccessUseCase
+) : CommandLineRunner {
     override fun run(args: Array<String>) {
-        val exitCode = runApp(args)
+        val exitCode = runApp(args, authenticateUserUseCase, checkAccessUseCase)
         exitProcess(exitCode)
     }
 }
 
-fun runApp(args: Array<String>): Int {
+fun runApp(
+    args: Array<String>,
+    authUseCase: AuthenticateUserUseCase,
+    accessUseCase: CheckAccessUseCase
+): Int {
     val parser = CommandLineParser(args)
 
     return when (val result = parser.parse()) {
@@ -47,9 +54,6 @@ fun runApp(args: Array<String>): Int {
                     val userRepository = UserRepositoryImpl(connection)
                     val resourceRepository = ResourceRepositoryImpl(connection)
                     val permissionRepository = PermissionRepositoryImpl(connection)
-
-                    val authUseCase = AuthenticateUserUseCase(userRepository)
-                    val accessUseCase = CheckAccessUseCase(permissionRepository)
 
                     val authCode = authUseCase(input.login, input.password)
                     if (authCode != 0) return authCode  // 2 — неверный пароль, 3 — неверный логин

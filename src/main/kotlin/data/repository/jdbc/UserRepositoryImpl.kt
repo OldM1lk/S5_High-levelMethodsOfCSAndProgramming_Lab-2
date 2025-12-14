@@ -2,8 +2,10 @@ package data.repository.jdbc
 
 import domain.model.User
 import domain.repository.UserRepository
+import org.springframework.stereotype.Repository
 import java.sql.Connection
 
+@Repository
 class UserRepositoryImpl(private val connection: Connection) : UserRepository {
     override fun findUserByLogin(login: String): User? {
         val sql = "SELECT * FROM users WHERE login = ?"

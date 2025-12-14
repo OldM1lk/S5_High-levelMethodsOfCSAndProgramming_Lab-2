@@ -3,8 +3,10 @@ package data.repository.jdbc
 import domain.model.Resource
 import domain.model.ResourceAction
 import domain.repository.PermissionRepository
+import org.springframework.stereotype.Repository
 import java.sql.Connection
 
+@Repository
 class PermissionRepositoryImpl(private val connection: Connection) : PermissionRepository {
     override fun hasPermission(user: String, resource: Resource, action: ResourceAction): Boolean {
         val sql = "SELECT action FROM permissions WHERE user_login = ? AND resource_name = ?"

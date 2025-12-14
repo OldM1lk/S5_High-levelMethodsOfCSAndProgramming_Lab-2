@@ -3,9 +3,11 @@ package data.repository.jdbc
 import domain.model.Resource
 import domain.repository.ResourceRepository
 import domain.service.ResourceNavigator
+import org.springframework.stereotype.Repository
 import java.sql.Connection
 import java.sql.ResultSet
 
+@Repository
 class ResourceRepositoryImpl(private val connection: Connection) : ResourceRepository {
     override fun findResourceByPath(path: String): Resource? {
         val parts = path.split(".")

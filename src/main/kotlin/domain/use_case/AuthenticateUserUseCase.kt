@@ -2,7 +2,9 @@ package domain.use_case
 
 import domain.repository.UserRepository
 import main.kotlin.util.hashPassword
+import org.springframework.stereotype.Service
 
+@Service
 class AuthenticateUserUseCase(
     private val repository: UserRepository,
 ) {
