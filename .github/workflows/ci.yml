@@ -25,10 +25,10 @@ jobs:
       - name: Build project
         run: ./scripts/build.sh
 
-      - name: Run unit tests
+      - name: Run unit test.kotlin.tests
         run: ./scripts/unitTest.sh
 
-      - name: Run full tests
+      - name: Run full test.kotlin.tests
         run: ./scripts/test.sh
 
       - name: Send Telegram notification
