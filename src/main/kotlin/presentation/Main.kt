@@ -3,6 +3,7 @@ package presentation
 import domain.repository.ResourceRepository
 import domain.use_case.AuthenticateUserUseCase
 import domain.use_case.CheckAccessUseCase
+import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -22,8 +23,13 @@ class CliRunner(
     private val checkAccessUseCase: CheckAccessUseCase,
     private val resourceRepository: ResourceRepository
 ) : CommandLineRunner {
+
+    private val log = LoggerFactory.getLogger(CliRunner::class.java)
+
     override fun run(args: Array<String>) {
+        log.info("Application started with args: {}", args.joinToString(" "))
         val exitCode = runApp(args, authenticateUserUseCase, checkAccessUseCase, resourceRepository)
+        log.info("Application finished with exit code {}", exitCode)
         exitProcess(exitCode)
     }
 }
