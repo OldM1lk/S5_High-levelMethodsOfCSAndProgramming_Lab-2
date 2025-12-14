@@ -1,11 +1,8 @@
 package presentation
 
-import data.repository.jdbc.PermissionRepositoryImpl
-import data.repository.jdbc.ResourceRepositoryImpl
-import data.repository.jdbc.UserRepositoryImpl
+import domain.repository.ResourceRepository
 import domain.use_case.AuthenticateUserUseCase
 import domain.use_case.CheckAccessUseCase
-import main.kotlin.util.DatabaseConnection
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -22,10 +19,11 @@ fun main(args: Array<String>) {
 @Component
 class CliRunner(
     private val authenticateUserUseCase: AuthenticateUserUseCase,
-    private val checkAccessUseCase: CheckAccessUseCase
+    private val checkAccessUseCase: CheckAccessUseCase,
+    private val resourceRepository: ResourceRepository
 ) : CommandLineRunner {
     override fun run(args: Array<String>) {
-        val exitCode = runApp(args, authenticateUserUseCase, checkAccessUseCase)
+        val exitCode = runApp(args, authenticateUserUseCase, checkAccessUseCase, resourceRepository)
         exitProcess(exitCode)
     }
 }
@@ -33,7 +31,8 @@ class CliRunner(
 fun runApp(
     args: Array<String>,
     authUseCase: AuthenticateUserUseCase,
-    accessUseCase: CheckAccessUseCase
+    accessUseCase: CheckAccessUseCase,
+    resourceRepository: ResourceRepository
 ): Int {
     val parser = CommandLineParser(args)
 
@@ -47,32 +46,19 @@ fun runApp(
 
         is CommandLineParser.ParseResult.Success -> {
             val input = result.args
-            val connection = DatabaseConnection.createConnection()
 
-            try {
-                connection.use { connection ->
-                    val userRepository = UserRepositoryImpl(connection)
-                    val resourceRepository = ResourceRepositoryImpl(connection)
-                    val permissionRepository = PermissionRepositoryImpl(connection)
+            val authCode = authUseCase(input.login, input.password)
+            if (authCode != 0) return authCode  // 2 — неверный пароль, 3 — неверный логин
 
-                    val authCode = authUseCase(input.login, input.password)
-                    if (authCode != 0) return authCode  // 2 — неверный пароль, 3 — неверный логин
+            val resource =
+                resourceRepository.findResourceByPath(input.resourcePath) ?: return 6    // ресурс не найден
 
-                    val resource =
-                        resourceRepository.findResourceByPath(input.resourcePath) ?: return 6    // ресурс не найден
+            val hasAccess = accessUseCase(input.login, resource, input.action)
+            if (!hasAccess) return 5    // нет доступа
 
-                    val hasAccess = accessUseCase(input.login, resource, input.action)
-                    if (!hasAccess) return 5    // нет доступа
+            if (input.volume > resource.maxVolume) return 8    // превышен объем
 
-                    if (input.volume > resource.maxVolume) return 8    // превышен объем
-
-                    0   // успех
-                }
-            } catch (e: java.sql.SQLException) {
-                10  // ошибка SQL-запроса
-            } catch (e: Exception) {
-                9   // ошибка подключения к базе данных
-            }
+            0   // успех
         }
     }
 }

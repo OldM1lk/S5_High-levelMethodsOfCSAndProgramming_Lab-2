@@ -2,7 +2,7 @@ package data.repository.memory
 
 import domain.model.User
 import domain.repository.UserRepository
-import main.kotlin.util.hashPassword
+import util.hashPassword
 
 class InMemoryUserRepository() : UserRepository {
     private val users = listOf(
