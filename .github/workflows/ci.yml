@@ -23,13 +23,13 @@ jobs:
         run: chmod +x scripts/*.sh
 
       - name: Build project
-        run: ./scripts/build.sh
+        run: mvn -B clean package
 
-      - name: Run unit test.kotlin.tests
-        run: ./scripts/unitTest.sh
+      - name: Run unit tests
+        run: mvn -B test
 
-      - name: Run full test.kotlin.tests
-        run: ./scripts/test.sh
+      - name: Run full tests
+        run: mvn -B verify
 
       - name: Send Telegram notification
         if: always()
