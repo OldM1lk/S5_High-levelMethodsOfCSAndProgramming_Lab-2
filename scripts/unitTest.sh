@@ -1,11 +1,8 @@
 #!/bin/bash
+set -e
 
-#Сборка проекта
-bash scripts/build.sh
-
+# Переход в корень проекта
 cd "$(dirname "$0")/.." || exit
 
-java -jar lib/junit-platform-console-standalone.jar \
-  --class-path out/app.jar \
-  --scan-class-path \
-  --include-package tests
+# Запуск юнит-тестов
+mvn test
