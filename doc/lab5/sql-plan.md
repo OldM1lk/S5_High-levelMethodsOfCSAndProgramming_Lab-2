@@ -62,7 +62,8 @@ erDiagram
 ## 4. Техническая сторона
 
 * СУБД: **H2 (файловая)**
-* Подключение через **JDBC**: `DriverManager.getConnection("jdbc:h2:./src/main.kotlin.data/data_source/app-db", "sa", "")`
+* Подключение через **JDBC**:
+  `DriverManager.getConnection("jdbc:h2:./src/main.kotlin.data/data_source/app-db", "sa", "")`
 * Скрипты:
     * `scripts/initDb.sh` — создаёт базу и таблицы
     * `scripts/fill.sql` — наполняет таблицы начальными данными
