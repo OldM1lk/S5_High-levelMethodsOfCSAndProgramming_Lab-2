@@ -1,9 +1,9 @@
 package test.kotlin
 
-import data.repository.memory.InMemoryPermissionRepository
-import data.repository.memory.InMemoryResourceRepository
-import domain.model.ResourceAction
-import domain.use_case.CheckAccessUseCase
+import app.data.repository.memory.InMemoryPermissionRepository
+import app.data.repository.memory.InMemoryResourceRepository
+import app.domain.model.ResourceAction
+import app.domain.use_case.CheckAccessUseCase
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

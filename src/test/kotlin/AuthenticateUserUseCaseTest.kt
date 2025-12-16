@@ -1,7 +1,7 @@
 package test.kotlin
 
-import data.repository.memory.InMemoryUserRepository
-import domain.use_case.AuthenticateUserUseCase
+import app.data.repository.memory.InMemoryUserRepository
+import app.domain.use_case.AuthenticateUserUseCase
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

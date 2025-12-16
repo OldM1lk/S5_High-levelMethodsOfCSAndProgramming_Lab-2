@@ -1,4 +1,4 @@
-package domain.model
+package app.domain.model
 
 data class User(
     val login: String,

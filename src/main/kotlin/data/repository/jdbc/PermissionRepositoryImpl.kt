@@ -1,8 +1,8 @@
-package data.repository.jdbc
+package app.data.repository.jdbc
 
-import domain.model.Resource
-import domain.model.ResourceAction
-import domain.repository.PermissionRepository
+import app.domain.model.Resource
+import app.domain.model.ResourceAction
+import app.domain.repository.PermissionRepository
 import org.springframework.stereotype.Repository
 import java.sql.Connection
 

@@ -1,8 +1,8 @@
-package data.repository.memory
+package app.data.repository.memory
 
-import domain.model.User
-import domain.repository.UserRepository
-import util.hashPassword
+import app.domain.model.User
+import app.domain.repository.UserRepository
+import app.util.hashPassword
 
 class InMemoryUserRepository() : UserRepository {
     private val users = listOf(

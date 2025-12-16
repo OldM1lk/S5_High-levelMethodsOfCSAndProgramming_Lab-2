@@ -1,7 +1,7 @@
 package test.kotlin
 
-import domain.model.Resource
-import domain.service.ResourceNavigator
+import app.domain.model.Resource
+import app.domain.service.ResourceNavigator
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 

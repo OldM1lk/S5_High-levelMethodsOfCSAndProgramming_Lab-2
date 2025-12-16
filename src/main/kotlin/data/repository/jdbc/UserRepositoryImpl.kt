@@ -1,7 +1,7 @@
-package data.repository.jdbc
+package app.data.repository.jdbc
 
-import domain.model.User
-import domain.repository.UserRepository
+import app.domain.model.User
+import app.domain.repository.UserRepository
 import org.springframework.stereotype.Repository
 import java.sql.Connection
 

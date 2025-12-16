@@ -1,7 +1,7 @@
-package domain.use_case
+package app.domain.use_case
 
-import domain.repository.UserRepository
-import util.hashPassword
+import app.domain.repository.UserRepository
+import app.util.hashPassword
 import org.springframework.stereotype.Service
 
 @Service

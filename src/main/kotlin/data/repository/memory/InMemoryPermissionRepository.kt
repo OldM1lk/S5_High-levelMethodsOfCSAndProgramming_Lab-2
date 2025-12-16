@@ -1,9 +1,9 @@
-package data.repository.memory
+package app.data.repository.memory
 
-import domain.model.Permission
-import domain.model.Resource
-import domain.model.ResourceAction
-import domain.repository.PermissionRepository
+import app.domain.model.Permission
+import app.domain.model.Resource
+import app.domain.model.ResourceAction
+import app.domain.repository.PermissionRepository
 
 class InMemoryPermissionRepository() : PermissionRepository {
     private val permissions = listOf(

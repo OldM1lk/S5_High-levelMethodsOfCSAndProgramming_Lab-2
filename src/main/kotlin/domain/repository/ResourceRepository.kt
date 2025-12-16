@@ -1,6 +1,6 @@
-package domain.repository
+package app.domain.repository
 
-import domain.model.Resource
+import app.domain.model.Resource
 
 interface ResourceRepository {
     fun findResourceByPath(path: String): Resource?

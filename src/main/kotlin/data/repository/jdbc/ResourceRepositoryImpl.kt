@@ -1,8 +1,8 @@
-package data.repository.jdbc
+package app.data.repository.jdbc
 
-import domain.model.Resource
-import domain.repository.ResourceRepository
-import domain.service.ResourceNavigator
+import app.domain.model.Resource
+import app.domain.repository.ResourceRepository
+import app.domain.service.ResourceNavigator
 import org.springframework.stereotype.Repository
 import java.sql.Connection
 import java.sql.ResultSet

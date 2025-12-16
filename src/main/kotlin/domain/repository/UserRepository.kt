@@ -1,6 +1,6 @@
-package domain.repository
+package app.domain.repository
 
-import domain.model.User
+import app.domain.model.User
 
 interface UserRepository {
     fun findUserByLogin(login: String): User?

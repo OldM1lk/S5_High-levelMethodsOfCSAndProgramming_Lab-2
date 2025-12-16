@@ -1,6 +1,6 @@
-package domain.service
+package app.domain.service
 
-import domain.model.Resource
+import app.domain.model.Resource
 
 object ResourceNavigator {
     fun fullPath(resource: Resource): String {

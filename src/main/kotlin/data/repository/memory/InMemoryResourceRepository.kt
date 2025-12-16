@@ -1,8 +1,8 @@
-package data.repository.memory
+package app.data.repository.memory
 
-import domain.model.Resource
-import domain.repository.ResourceRepository
-import domain.service.ResourceNavigator
+import app.domain.model.Resource
+import app.domain.repository.ResourceRepository
+import app.domain.service.ResourceNavigator
 
 class InMemoryResourceRepository() : ResourceRepository {
     private val resources: List<Resource> by lazy {

@@ -3,7 +3,7 @@ package test.kotlin
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
-import util.hashPassword
+import app.util.hashPassword
 
 class HashUtilTest {
     @Test

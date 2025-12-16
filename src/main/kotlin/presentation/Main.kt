@@ -1,8 +1,8 @@
-package presentation
+package app.presentation
 
-import domain.repository.ResourceRepository
-import domain.use_case.AuthenticateUserUseCase
-import domain.use_case.CheckAccessUseCase
+import app.domain.repository.ResourceRepository
+import app.domain.use_case.AuthenticateUserUseCase
+import app.domain.use_case.CheckAccessUseCase
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component

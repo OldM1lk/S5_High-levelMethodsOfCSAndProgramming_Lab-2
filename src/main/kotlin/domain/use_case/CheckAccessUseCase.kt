@@ -1,8 +1,8 @@
-package domain.use_case
+package app.domain.use_case
 
-import domain.model.Resource
-import domain.model.ResourceAction
-import domain.repository.PermissionRepository
+import app.domain.model.Resource
+import app.domain.model.ResourceAction
+import app.domain.repository.PermissionRepository
 import org.springframework.stereotype.Service
 
 @Service
