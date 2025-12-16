@@ -5,17 +5,8 @@ import domain.use_case.AuthenticateUserUseCase
 import domain.use_case.CheckAccessUseCase
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
 import org.springframework.stereotype.Component
 import kotlin.system.exitProcess
-
-@SpringBootApplication
-class Application
-
-fun main(args: Array<String>) {
-    runApplication<Application>(*args)
-}
 
 @Component
 class CliRunner(
