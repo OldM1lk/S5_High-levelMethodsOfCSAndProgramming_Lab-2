@@ -8,18 +8,18 @@ cd "$(dirname "$0")/.."
 H2_JAR="lib/h2-2.4.240.jar"
 
 # Создаём папку для базы
-mkdir -p "src/data/data_source"
+mkdir -p "src/main/kotlin/data/data_source"
 
 # Инициализация базы: применяем schema.sql и fill.sql
 echo "Инициализация базы данных..."
 java -cp "$H2_JAR" org.h2.tools.RunScript \
-  -url "jdbc:h2:./src/data/data_source/app-db" \
+  -url "jdbc:h2:./src/main/kotlin/data/data_source/app-db" \
   -user sa \
   -script "scripts/schema.sql"
 
 java -cp "$H2_JAR" org.h2.tools.RunScript \
-  -url "jdbc:h2:./src/data/data_source/app-db" \
+  -url "jdbc:h2:./src/main/kotlin/data/data_source/app-db" \
   -user sa \
   -script "scripts/fill.sql"
 
-echo "База данных успешно инициализирована: src/data/data_source/app-db.mv.db"
+echo "База данных успешно инициализирована: src/main/kotlin/data/data_source/app-db.mv.db"

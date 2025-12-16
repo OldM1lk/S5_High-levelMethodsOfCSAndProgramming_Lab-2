@@ -4,7 +4,7 @@ import java.sql.Connection
 import java.sql.DriverManager
 
 object DatabaseConnection {
-    private const val DEFAULT_URL = "jdbc:h2:./src/main.kotlin.data/data_source/app-db"
+    private const val DEFAULT_URL = "jdbc:h2:./src/main/kotlin/data/data_source/app-db"
     private const val DEFAULT_USER = "sa"
     private const val DEFAULT_PASSWORD = ""
 
