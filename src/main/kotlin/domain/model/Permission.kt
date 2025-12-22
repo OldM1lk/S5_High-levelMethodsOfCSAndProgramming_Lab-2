@@ -1,7 +1,23 @@
 package app.domain.model
 
-data class Permission(
-    val userLogin: String,
-    val resourceName: String,
-    val actions: Set<ResourceAction>
+import jakarta.persistence.*
+
+@Entity
+@Table(name = "permissions")
+class Permission(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    val user: User,
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "resource_id")
+    val resource: Resource,
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    val action: ResourceAction
 )
